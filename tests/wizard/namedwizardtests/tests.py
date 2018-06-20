@@ -2,7 +2,11 @@ from __future__ import unicode_literals
 
 import copy
 
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
+
 from django.http import QueryDict
 from django.test import TestCase, override_settings
 from django.utils._os import upath

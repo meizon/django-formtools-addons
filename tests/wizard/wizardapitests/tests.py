@@ -3,7 +3,11 @@ from __future__ import unicode_literals
 
 import json
 
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
+
 from django.http.response import JsonResponse
 from django.test.testcases import TestCase
 from django.test.utils import override_settings
