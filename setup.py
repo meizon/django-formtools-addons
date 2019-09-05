@@ -9,14 +9,19 @@ try:
 except ImportError:
     from distutils.core import setup
 
-from pip.req import parse_requirements
+
+def parse_requirements(filename):
+    """ load requirements from a pip requirements file """
+    lineiter = (line.strip() for line in open(filename))
+    return [line for line in lineiter if line and not line.startswith("#")]
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 __version__ = '0.1.37'
 
 # parse_requirements() returns generator of pip.req.InstallRequirement objects
-requirements = [str(ir.req) for ir in parse_requirements(os.path.join(BASE_DIR, 'requirements.txt'), session=False)]
+requirements = parse_requirements(os.path.join(BASE_DIR, 'requirements.txt'))
 
 if sys.argv[-1] == 'publish':
     try:
